@@ -16,11 +16,12 @@ option(BUILD_CXXLIBS "Build libFLAC++" ON)
 option(BUILD_PROGRAMS "Build and install programs" ON)
 option(BUILD_EXAMPLES "Build and install examples" ON)
 option(BUILD_DOCS "Build and install doxygen documents" ON)
-option(WITH_STACK_PROTECTOR "Enable GNU GCC stack smash protection" ON)
+option(WITH_STACK_PROTECTOR "Enable GNU GCC stack smash protection" OFF)
 option(INSTALL_MANPAGES "Install MAN pages" ON)
 option(INSTALL_PKGCONFIG_MODULES "Install PkgConfig modules" ON)
 option(INSTALL_CMAKE_CONFIG_MODULE "Install CMake package-config module" ON)
 option(WITH_OGG "ogg support (default: test for libogg)" ON)
+option(ENABLE_ITERATIVELY_REWEIGHTED_LEAST_SQUARES "test" ON)
 
 set(VERSION ${PROJECT_VERSION})
 
@@ -104,7 +105,9 @@ endif()
 include_directories("include")
 
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
-add_definitions(-DHAVE_CONFIG_H)
+add_definitions(-DHAVE_CONFIG_H
+			    -DENABLE_ITERATIVELY_REWEIGHTED_LEAST_SQUARES
+				-D_FORTIFY_SOURCE=0)
 
 if(MSVC)
     add_definitions(
